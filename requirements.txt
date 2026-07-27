@@ -1,4 +1,8 @@
+# PyTorch & Torchvision (CUDA環境の場合は index-url を指定してインストール)
+# 例: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 torch>=2.0.0
 torchvision>=0.15.0
+
+# 画像・動画処理および数値計算
 opencv-python>=4.7.0
-numpy>=1.24.0
+numpy>=1.24.0,<2.0.0
