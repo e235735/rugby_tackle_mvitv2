@@ -6,3 +6,7 @@ torchvision>=0.15.0
 # 画像・動画処理および数値計算
 opencv-python>=4.7.0
 numpy>=1.24.0,<2.0.0
+
+opencv-python
+numpy
+pandas

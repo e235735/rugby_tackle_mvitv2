@@ -36,13 +36,13 @@ def on_trackbar(val):
     if g_changed_by_trackbar:
         frame_idx = val
 
-def run_manual_clipper(video_path, output_dir, target_fps=30, clip_duration=1.5):
+def run_manual_clipper(video_path, output_dir, target_fps=30, clip_duration=1.0):
     global frame_idx, g_changed_by_trackbar
     print(INSTRUCTIONS)
     
     # フォルダの作成
     tackle_dir = os.path.join(output_dir, "tackle")
-    other_dir = os.path.join(output_dir, "other")
+    other_dir = os.path.join(output_dir, "background")
     os.makedirs(tackle_dir, exist_ok=True)
     os.makedirs(other_dir, exist_ok=True)
 
@@ -150,10 +150,10 @@ def run_manual_clipper(video_path, output_dir, target_fps=30, clip_duration=1.5)
                     frames_to_save.append(frames_to_save[-1] if len(frames_to_save) > 0 else np.zeros((224, 224, 3), dtype=np.uint8))
                 
                 if is_tackle:
-                    save_path = os.path.join(tackle_dir, f"tackle_{tackle_count:04d}.mp4")
+                    save_path = os.path.join(tackle_dir, f"tackle_500_2_{tackle_count:04d}.mp4")
                     tackle_count += 1
                 else:
-                    save_path = os.path.join(other_dir, f"other_{other_count:04d}.mp4")
+                    save_path = os.path.join(other_dir, f"other_500_2_{other_count:04d}.mp4")
                     other_count += 1
                     
                 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -161,7 +161,7 @@ def run_manual_clipper(video_path, output_dir, target_fps=30, clip_duration=1.5)
                 for f_save in frames_to_save:
                     out.write(f_save)
                 out.release()
-                print(f"-> 1.5秒動画を保存しました: {save_path}")
+                print(f"-> 1.0秒動画を保存しました: {save_path}")
             else:
                 print("-> キャンセルされました。")
 
@@ -171,7 +171,7 @@ def run_manual_clipper(video_path, output_dir, target_fps=30, clip_duration=1.5)
 if __name__ == "__main__":
     # 前回修復した動画のパスを指定
     run_manual_clipper(
-        video_path="dataset/videos/30.mov",
-        output_dir="dataset/train",
-        clip_duration=1.5
+        video_path="dataset/500Tackles2/1000.mpeg",
+        output_dir="dataset/train_500Tackles2",
+        clip_duration=1.0
     )

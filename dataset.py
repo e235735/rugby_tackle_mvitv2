@@ -1,11 +1,9 @@
-# dataset.py
 import os
 import glob
 import cv2
 import torch
 import numpy as np
-from torch.utils.data import Dataset, DataLoader
-# ★ NumPyが正常になれば、この公式標準のインポートが絶対に通ります
+from torch.utils.data import Dataset
 from torchvision.models.video import MViT_V2_S_Weights
 
 class RugbyVideoDataset(Dataset):
@@ -60,18 +58,13 @@ class RugbyVideoDataset(Dataset):
             tensor_frame = torch.from_numpy(rgb_frame).permute(2, 0, 1) # (C, H, W)
             tensors.append(tensor_frame)
         
-        # 1. まずは公式前処理が期待する (T, C, H, W) の形状でスタックする
         video_tensor = torch.stack(tensors) 
         
         if self.transform:
-            # 2. ここで公式の前処理を実行（形状は T, C, H, W のまま受け取らせる）
             video_tensor = self.transform(video_tensor)
-            
-            # 3. 前処理が終わった後、もし形状が (C, T, H, W) になっていなければここで並び替える
             if video_tensor.size(0) != 3 and video_tensor.size(1) == 3:
                 video_tensor = video_tensor.permute(1, 0, 2, 3)
         else:
-            # トランスフォームがない場合のフォールバック
             video_tensor = video_tensor.float() / 255.0
             video_tensor = video_tensor.permute(1, 0, 2, 3) 
             

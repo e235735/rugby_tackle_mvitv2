@@ -117,7 +117,7 @@ def analyze_long_video(video_path, threshold=0.50): # 💡確認のため閾値�
 
 if __name__ == "__main__":
     # テストしたい動画のパス
-    long_video_path = "dataset/100.mp4" 
+    long_video_path = "dataset/videos/15.mp4" 
     
     if os.path.exists(long_video_path):
         analyze_long_video(long_video_path, threshold=0.60) # 60%以上を検出対象に

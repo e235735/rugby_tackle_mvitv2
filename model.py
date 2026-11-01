@@ -1,7 +1,5 @@
-# model.py
 import torch
 import torch.nn as nn
-# ★ _b / _B_ ではなく、すべて _s / _S_ (Small) に変更します
 from torchvision.models.video import mvit_v2_s, MViT_V2_S_Weights
 
 def get_rugby_mvit_model(num_classes=2):
